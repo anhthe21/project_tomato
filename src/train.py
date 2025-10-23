@@ -6,11 +6,11 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import matplotlib.pyplot as plt
 
 # --- Config ---
-DATA_DIR = "../data"
-IMG_SIZE = (128, 128)
+DATA_DIR = "C:\\Users\\scubi\\Documents\\Projects\\project_tomato\\data"
+IMG_SIZE = (224, 224)
 BATCH_SIZE = 32
 EPOCHS = 30
-MODEL_DIR = "../models"
+MODEL_DIR = "C:\\Users\\scubi\\Documents\\Projects\\project_tomato\\models"
 os.makedirs(MODEL_DIR, exist_ok=True)
 
 # --- Data generators ---
@@ -32,7 +32,7 @@ train_gen = train_datagen.flow_from_directory(
     os.path.join(DATA_DIR, "train"),
     target_size=IMG_SIZE,
     batch_size=BATCH_SIZE,
-    class_mode="binary",  # nhị phân
+    class_mode="binary",
     shuffle=True
 )
 

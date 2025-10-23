@@ -5,8 +5,8 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.metrics import classification_report, confusion_matrix
 
-MODEL_PATH = "../models/best_model.h5"
-DATA_DIR = "../data"
+MODEL_PATH = "C:\\Users\\scubi\\Documents\\Projects\\project_tomato\\models\\best_model.h5"
+DATA_DIR = "C:\\Users\\scubi\\Documents\\Projects\\project_tomato\\data"
 IMG_SIZE = (128,128)
 BATCH_SIZE = 32
 
