@@ -1,0 +1,10 @@
+tomato_project/
+  dataset/
+  src/
+    train_tomato.py
+    infer_tomato.py
+  models/
+  outputs/
+    training_plot.png
+  requirements.txt
+  README.md
