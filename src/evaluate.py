@@ -7,7 +7,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 
 MODEL_PATH = "C:\\Users\\scubi\\Documents\\Projects\\project_tomato\\models\\best_model.h5"
 DATA_DIR = "C:\\Users\\scubi\\Documents\\Projects\\project_tomato\\data"
-IMG_SIZE = (128,128)
+IMG_SIZE = (224,224)
 BATCH_SIZE = 32
 
 model = load_model(MODEL_PATH)
