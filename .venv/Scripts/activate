@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\scubi\Documents\Tổng hợp đề tài\tomato_project\.venv"
+VIRTUAL_ENV="C:\Users\scubi\Documents\Tổng hợp đề tài\project_tomato\.venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
