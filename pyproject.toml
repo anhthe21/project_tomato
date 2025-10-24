@@ -1,8 +1,6 @@
 tensorflow==2.12
+keras
 numpy
-pandas
 matplotlib
-scikit-learn
+pillow
 opencv-python
-albumentations
-tqdm
