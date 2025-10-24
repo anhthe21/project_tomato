@@ -1,6 +1,22 @@
-tensorflow
-keras
-numpy
-matplotlib
-pillow
-opencv-python
+[project]
+name = "tomato-cnn"
+version = "1.0.0"
+description = "Ứng dụng CNN trong phân loại cà chua theo độ chín (Xanh & Chín)"
+requires-python = ">=3.9"
+
+dependencies = [
+    "tensorflow",
+    "keras",
+    "numpy",
+    "matplotlib",
+    "pillow",
+    "opencv-python"
+]
+
+[tool.uv]
+# Cấu hình cho uv (nếu dùng uv để quản lý môi trường và cài đặt)
+sync = true
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
