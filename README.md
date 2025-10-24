@@ -4,7 +4,7 @@
 Đề tài này sử dụng mạng nơ-ron tích chập (Convolutional Neural Network - CNN) để **phân loại cà chua theo độ chín** thành hai loại: **Xanh (Unripe)** và **Chín (Ripe)**.
 
 Đây là một dự án học tập trong môn **Trí tuệ nhân tạo (AI)**, được thực hiện tại **Trường Đại học Công nghiệp Hà Nội (HAUI)**.  
-Toàn bộ mã nguồn được viết bằng **Python** và **TensorFlow/Keras** trong môi trường **VS Code**.
+Toàn bộ mã nguồn được viết bằng **Python** và **TensorFlow/Keras**.
 
 ---
 
