@@ -1,6 +1,5 @@
 """
 train.py - Huan luyen mo hinh CNN phan loai ca chua (Xanh/Chin)
-Tac gia: The Anh
 """
 
 import os
