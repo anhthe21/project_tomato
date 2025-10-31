@@ -24,12 +24,10 @@ BATCH_SIZE = 32
 EPOCHS = 50
 LEARNING_RATE = 0.001
 
-# Duong dan du lieu (dung forward slash hoat dong tren ca Windows/Linux)
 TRAIN_DIR = 'data/train'
 VAL_DIR = 'data/val'
 MODEL_SAVE_PATH = 'models/best_model.h5'
 
-# Tao thu muc models neu chua co
 os.makedirs('models', exist_ok=True)
 
 print("="*60)
