@@ -38,8 +38,6 @@ PROJECT_TOMATO/
 ├── models/
 │   └── best_model.h5       # Mô hình CNN đã huấn luyện
 │
-├── notebooks/              # Notebook demo/training (tuỳ chọn)
-│
 ├── src/
 │   ├── data_prep.py        # Tiền xử lý dữ liệu ảnh
 │   ├── train.py            # Huấn luyện mô hình CNN
@@ -47,8 +45,10 @@ PROJECT_TOMATO/
 │   ├── infer.py            # Dự đoán ảnh mới
 │
 ├── pyproject.toml          # (nếu dùng uv)
-├── README.md
-└── .gitattributes
+├── README.md               # File hướng dẫn này
+├── .gitignore              # Chỉ định các file/thư mục Git bỏ qua
+├── requirements.txt        # Danh sách các thư viện cần thiết
+└── .gitattributes          
 ```
 
 ---
@@ -67,7 +67,7 @@ uv venv
 
 **Windows:**
 ```bash
-.venv\Scripts\activate
+.venv\Scripts\activate.ps1
 ```
 
 **Linux/macOS:**
@@ -83,7 +83,7 @@ uv sync
 
 Hoặc cài thủ công:
 ```bash
-uv pip install tensorflow keras numpy matplotlib pillow opencv-python
+uv pip install tensorflow numpy matplotlib pillow opencv-python scipy
 ```
 
 ---
@@ -109,15 +109,15 @@ uv run src/infer.py
 
 ## 🧬 Cấu trúc mô hình CNN (đề xuất)
 
-| Lớp | Mô tả |
-|-----|--------|
-| Conv2D(32, 3x3, ReLU) | Trích xuất đặc trưng cấp thấp |
-| MaxPooling2D(2x2) | Giảm kích thước ảnh |
-| Conv2D(64, 3x3, ReLU) | Trích xuất đặc trưng sâu hơn |
-| MaxPooling2D(2x2) | Giảm chiều dữ liệu |
-| Flatten | Chuyển ma trận thành vector |
-| Dense(128, ReLU) | Lớp fully-connected |
-| Dense(2, Softmax) | Phân loại 2 lớp (Xanh/Chín) |
+|Lớp	                                | Mô tả                                        |
+|Block 1                                | (Conv, BatchNorm, Pool, Dropout)	32 filters |
+|Block 2                                | (Conv, BatchNorm, Pool, Dropout)	64 filters |
+|Block 3                                | (Conv, BatchNorm, Pool, Dropout)	128 filters|
+|Block 4                                | (Conv, BatchNorm, Pool, Dropout)	256 filters|
+|Flatten	                            | Chuyển ma trận thành vector                  |
+|Dense(512, ReLU, BatchNorm, Dropout)	| Lớp fully-connected                          |
+|Dense(128, ReLU, BatchNorm, Dropout)	| Lớp fully-connected                          |
+|Dense(2, Softmax)	                    | Phân loại 2 lớp (Xanh/Chín)                  |
 
 ---
 
