@@ -12,11 +12,8 @@ from datetime import datetime
 if sys.platform == 'win32':
     sys.stdout.reconfigure(encoding='utf-8')
 
+# Chi import tensorflow
 import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras import layers, models
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
 
 # ========== CAU HINH ==========
 IMG_SIZE = (128, 128)
@@ -45,7 +42,8 @@ print("="*60)
 print("\nDang tai du lieu...")
 
 # Data Augmentation cho tap train (tang cuong du lieu)
-train_datagen = ImageDataGenerator(
+# SU DUNG: tf.keras.preprocessing.image.ImageDataGenerator
+train_datagen = tf.keras.preprocessing.image.ImageDataGenerator(
     rescale=1./255,
     rotation_range=20,
     width_shift_range=0.2,
@@ -57,7 +55,8 @@ train_datagen = ImageDataGenerator(
 )
 
 # Chi chuan hoa cho tap validation (khong augment)
-val_datagen = ImageDataGenerator(rescale=1./255)
+# SU DUNG: tf.keras.preprocessing.image.ImageDataGenerator
+val_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255)
 
 # Load du lieu tu thu muc
 train_generator = train_datagen.flow_from_directory(
@@ -90,44 +89,46 @@ print(f"   So lop: {num_classes}")
 # ========== XAY DUNG MO HINH CNN ==========
 print("\nDang xay dung mo hinh CNN...")
 
-model = models.Sequential([
+# SU DUNG: tf.keras.models.Sequential
+model = tf.keras.models.Sequential([
     # Block 1
-    layers.Conv2D(32, (3, 3), activation='relu', padding='same', 
-                  input_shape=(IMG_SIZE[0], IMG_SIZE[1], 3)),
-    layers.BatchNormalization(),
-    layers.MaxPooling2D((2, 2)),
-    layers.Dropout(0.25),
+    # SU DUNG: tf.keras.layers...
+    tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same', 
+                           input_shape=(IMG_SIZE[0], IMG_SIZE[1], 3)),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.MaxPooling2D((2, 2)),
+    tf.keras.layers.Dropout(0.25),
     
     # Block 2
-    layers.Conv2D(64, (3, 3), activation='relu', padding='same'),
-    layers.BatchNormalization(),
-    layers.MaxPooling2D((2, 2)),
-    layers.Dropout(0.25),
+    tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.MaxPooling2D((2, 2)),
+    tf.keras.layers.Dropout(0.25),
     
     # Block 3
-    layers.Conv2D(128, (3, 3), activation='relu', padding='same'),
-    layers.BatchNormalization(),
-    layers.MaxPooling2D((2, 2)),
-    layers.Dropout(0.25),
+    tf.keras.layers.Conv2D(128, (3, 3), activation='relu', padding='same'),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.MaxPooling2D((2, 2)),
+    tf.keras.layers.Dropout(0.25),
     
     # Block 4
-    layers.Conv2D(256, (3, 3), activation='relu', padding='same'),
-    layers.BatchNormalization(),
-    layers.MaxPooling2D((2, 2)),
-    layers.Dropout(0.4),
+    tf.keras.layers.Conv2D(256, (3, 3), activation='relu', padding='same'),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.MaxPooling2D((2, 2)),
+    tf.keras.layers.Dropout(0.4),
     
     # Fully Connected Layers
-    layers.Flatten(),
-    layers.Dense(512, activation='relu'),
-    layers.BatchNormalization(),
-    layers.Dropout(0.5),
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(512, activation='relu'),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.Dropout(0.5),
     
-    layers.Dense(128, activation='relu'),
-    layers.BatchNormalization(),
-    layers.Dropout(0.5),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.Dropout(0.5),
     
     # Output Layer
-    layers.Dense(num_classes, activation='softmax')
+    tf.keras.layers.Dense(num_classes, activation='softmax')
 ])
 
 print("Mo hinh CNN da duoc xay dung!")
@@ -137,7 +138,8 @@ model.summary()
 # ========== COMPILE MO HINH ==========
 print("\nDang compile mo hinh...")
 
-optimizer = keras.optimizers.Adam(learning_rate=LEARNING_RATE)
+# SU DUNG: tf.keras.optimizers.Adam
+optimizer = tf.keras.optimizers.Adam(learning_rate=LEARNING_RATE)
 
 model.compile(
     optimizer=optimizer,
@@ -152,7 +154,8 @@ print("Compile hoan tat!")
 print("\nThiet lap callbacks...")
 
 # 1. Early Stopping - Dung som neu khong cai thien
-early_stop = EarlyStopping(
+# SU DUNG: tf.keras.callbacks.EarlyStopping
+early_stop = tf.keras.callbacks.EarlyStopping(
     monitor='val_loss',
     patience=10,
     restore_best_weights=True,
@@ -160,7 +163,8 @@ early_stop = EarlyStopping(
 )
 
 # 2. Model Checkpoint - Luu mo hinh tot nhat
-checkpoint = ModelCheckpoint(
+# SU DUNG: tf.keras.callbacks.ModelCheckpoint
+checkpoint = tf.keras.callbacks.ModelCheckpoint(
     MODEL_SAVE_PATH,
     monitor='val_accuracy',
     save_best_only=True,
@@ -169,7 +173,8 @@ checkpoint = ModelCheckpoint(
 )
 
 # 3. Reduce Learning Rate - Giam LR khi plateau
-reduce_lr = ReduceLROnPlateau(
+# SU DUNG: tf.keras.callbacks.ReduceLROnPlateau
+reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(
     monitor='val_loss',
     factor=0.5,
     patience=5,
