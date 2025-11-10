@@ -42,7 +42,6 @@ print("="*60)
 print("\nDang tai du lieu...")
 
 # Data Augmentation cho tap train (tang cuong du lieu)
-# SU DUNG: tf.keras.preprocessing.image.ImageDataGenerator
 train_datagen = tf.keras.preprocessing.image.ImageDataGenerator(
     rescale=1./255,
     rotation_range=20,
@@ -55,7 +54,6 @@ train_datagen = tf.keras.preprocessing.image.ImageDataGenerator(
 )
 
 # Chi chuan hoa cho tap validation (khong augment)
-# SU DUNG: tf.keras.preprocessing.image.ImageDataGenerator
 val_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255)
 
 # Load du lieu tu thu muc
@@ -89,10 +87,8 @@ print(f"   So lop: {num_classes}")
 # ========== XAY DUNG MO HINH CNN ==========
 print("\nDang xay dung mo hinh CNN...")
 
-# SU DUNG: tf.keras.models.Sequential
 model = tf.keras.models.Sequential([
     # Block 1
-    # SU DUNG: tf.keras.layers...
     tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same', 
                            input_shape=(IMG_SIZE[0], IMG_SIZE[1], 3)),
     tf.keras.layers.BatchNormalization(),
@@ -154,7 +150,6 @@ print("Compile hoan tat!")
 print("\nThiet lap callbacks...")
 
 # 1. Early Stopping - Dung som neu khong cai thien
-# SU DUNG: tf.keras.callbacks.EarlyStopping
 early_stop = tf.keras.callbacks.EarlyStopping(
     monitor='val_loss',
     patience=10,
@@ -163,7 +158,6 @@ early_stop = tf.keras.callbacks.EarlyStopping(
 )
 
 # 2. Model Checkpoint - Luu mo hinh tot nhat
-# SU DUNG: tf.keras.callbacks.ModelCheckpoint
 checkpoint = tf.keras.callbacks.ModelCheckpoint(
     MODEL_SAVE_PATH,
     monitor='val_accuracy',
@@ -173,7 +167,6 @@ checkpoint = tf.keras.callbacks.ModelCheckpoint(
 )
 
 # 3. Reduce Learning Rate - Giam LR khi plateau
-# SU DUNG: tf.keras.callbacks.ReduceLROnPlateau
 reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(
     monitor='val_loss',
     factor=0.5,
