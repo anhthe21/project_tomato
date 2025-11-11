@@ -53,7 +53,7 @@ train_datagen = tf.keras.preprocessing.image.ImageDataGenerator(
     fill_mode='nearest'
 )
 
-# Chi chuan hoa cho tap validation (khong augment)
+# Chi chuan hoa cho tap validation 
 val_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255)
 
 # Load du lieu tu thu muc
