@@ -44,7 +44,6 @@ PROJECT_TOMATO/
 │   ├── evaluate.py         # Đánh giá mô hình
 │   ├── infer.py            # Dự đoán ảnh mới
 │
-├── pyproject.toml          # (nếu dùng uv)
 ├── README.md               # File hướng dẫn này
 ├── .gitignore              # Chỉ định các file/thư mục Git bỏ qua
 ├── requirements.txt        # Danh sách các thư viện cần thiết
