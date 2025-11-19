@@ -19,7 +19,7 @@ import tensorflow as tf
 IMG_SIZE = (128, 128)
 BATCH_SIZE = 32
 EPOCHS = 50
-LEARNING_RATE = 0.001
+LEARNING_RATE = 0.0001
 
 TRAIN_DIR = 'data/train'
 VAL_DIR = 'data/val'
@@ -44,12 +44,13 @@ print("\nDang tai du lieu...")
 # Data Augmentation cho tap train (tang cuong du lieu)
 train_datagen = tf.keras.preprocessing.image.ImageDataGenerator(
     rescale=1./255,
-    rotation_range=20,
+    rotation_range=40,     
     width_shift_range=0.2,
     height_shift_range=0.2,
     shear_range=0.2,
-    zoom_range=0.2,
+    zoom_range=0.3,         
     horizontal_flip=True,
+    brightness_range=[0.8, 1.2],
     fill_mode='nearest'
 )
 
@@ -99,13 +100,13 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'),
     tf.keras.layers.BatchNormalization(),
     tf.keras.layers.MaxPooling2D((2, 2)),
-    tf.keras.layers.Dropout(0.25),
+    tf.keras.layers.Dropout(0.3),
     
     # Block 3
     tf.keras.layers.Conv2D(128, (3, 3), activation='relu', padding='same'),
     tf.keras.layers.BatchNormalization(),
     tf.keras.layers.MaxPooling2D((2, 2)),
-    tf.keras.layers.Dropout(0.25),
+    tf.keras.layers.Dropout(0.4),
     
     # Block 4
     tf.keras.layers.Conv2D(256, (3, 3), activation='relu', padding='same'),
@@ -115,7 +116,7 @@ model = tf.keras.models.Sequential([
     
     # Fully Connected Layers
     tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(512, activation='relu'),
+    tf.keras.layers.Dense(64, activation='relu'),
     tf.keras.layers.BatchNormalization(),
     tf.keras.layers.Dropout(0.5),
     
