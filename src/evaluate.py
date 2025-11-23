@@ -16,9 +16,9 @@ if sys.platform == 'win32':
     sys.stdout.reconfigure(encoding='utf-8')
 
 # ========== CẤU HÌNH ==========
-IMG_SIZE = (128, 128)  # Phải khớp với train.py
+IMG_SIZE = (128, 128)  
 MODEL_PATH = 'models/best_model.h5'
-TEST_DIR = 'data/val'  # Sử dụng tập validation để đánh giá (hoặc đổi thành 'data/test' nếu có)
+TEST_DIR = 'data/test'  
 
 def load_trained_model():
     if not os.path.exists(MODEL_PATH):
