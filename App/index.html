@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>AI Phân Loại Cà Chua</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .animate-spin-slow { animation: spin 3s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-gray-50 h-screen flex flex-col">
+
+    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">🍅</span>
+                <h1 class="text-xl font-bold text-gray-800 tracking-tight">TomatoAI Detector</h1>
+            </div>
+            <div class="text-sm text-gray-500 hidden sm:block">Phiên bản 1.0</div>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-4xl rounded-2xl shadow-xl border border-gray-100 overflow-hidden flex flex-col md:flex-row h-auto md:h-[500px]">
+            
+            <div class="w-full md:w-1/2 p-6 md:p-8 flex flex-col border-b md:border-b-0 md:border-r border-gray-100">
+                <h2 class="text-lg font-semibold text-gray-700 mb-4">Tải ảnh lên</h2>
+                
+                <div id="dropZone" 
+                     class="flex-grow border-2 border-dashed border-gray-300 rounded-xl bg-gray-50 flex flex-col justify-center items-center cursor-pointer hover:bg-blue-50 hover:border-blue-400 transition-all duration-300 group relative overflow-hidden">
+                    
+                    <div id="placeholderContent" class="text-center p-6 transition-opacity duration-300">
+                        <div class="w-16 h-16 bg-blue-100 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                            </svg>
+                        </div>
+                        <p class="text-gray-600 font-medium">Nhấn hoặc kéo ảnh vào đây</p>
+                        <p class="text-xs text-gray-400 mt-1">Hỗ trợ: JPG, PNG, JPEG</p>
+                    </div>
+
+                    <img id="previewImage" class="absolute inset-0 w-full h-full object-cover hidden" alt="Preview">
+                    
+                    <input type="file" id="fileInput" accept="image/*" class="hidden">
+                </div>
+            </div>
+
+            <div class="w-full md:w-1/2 p-6 md:p-8 flex flex-col bg-gray-50/50 justify-center items-center text-center relative">
+                
+                <div id="loadingState" class="hidden flex-col items-center">
+                    <div class="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mb-4"></div>
+                    <p class="text-gray-500 animate-pulse">Đang phân tích...</p>
+                </div>
+
+                <div id="resultContainer" class="hidden w-full">
+                    <p class="text-gray-500 text-sm mb-2 uppercase tracking-wide font-semibold">Kết quả phân tích</p>
+                    
+                    <div id="resultBox" class="p-6 rounded-xl border-2 mb-6 bg-white shadow-sm transition-all transform hover:scale-105">
+                        <h2 id="resultText" class="text-3xl font-bold">--</h2>
+                    </div>
+
+                    <div id="confidenceBar" class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-300 mb-6 hidden">
+                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: 95%"></div>
+                    </div>
+
+                    <button id="resetBtn" class="px-6 py-2 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-100 transition shadow-sm">
+                        Thử ảnh khác
+                    </button>
+                </div>
+
+                <div id="initialState" class="text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 mx-auto mb-2 opacity-20">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+                    </svg>
+                    <p>Vui lòng chọn ảnh để bắt đầu</p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
