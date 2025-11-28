@@ -1,9 +1,11 @@
 """
 evaluate.py - Đánh giá hiệu suất mô hình (Accuracy & Confusion Matrix)
+HIỂN THỊ TOÀN BỘ ẢNH SAI
 """
 
 import os
 import sys
+import math  # <--- Thêm thư viện toán học
 import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
@@ -31,7 +33,6 @@ def evaluate_dataset(model):
     print("ĐÁNH GIÁ TRÊN TẬP DỮ LIỆU")
     print("="*60)
 
-    # Chuẩn bị dữ liệu (chỉ rescale, KHÔNG augment)
     test_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255)
 
     if not os.path.exists(TEST_DIR):
@@ -43,20 +44,18 @@ def evaluate_dataset(model):
         target_size=IMG_SIZE,
         batch_size=32,
         class_mode='categorical',
-        shuffle=False # QUAN TRỌNG: Không trộn để khớp nhãn
+        shuffle=False 
     )
 
-    # Lấy tên các lớp
     class_names = list(test_generator.class_indices.keys())
     print(f"Các lớp: {class_names}")
 
-    # Dự đoán
     print("Đang thực hiện dự đoán...")
     Y_pred = model.predict(test_generator, verbose=1)
-    y_pred = np.argmax(Y_pred, axis=1) # Nhãn dự đoán
-    y_true = test_generator.classes    # Nhãn thực tế
+    y_pred = np.argmax(Y_pred, axis=1) 
+    y_true = test_generator.classes    
 
-    # 1. Ma trận nhầm lẫn (Confusion Matrix)
+    # 1. Ma trận nhầm lẫn
     print("\n--- Confusion Matrix ---")
     cm = confusion_matrix(y_true, y_pred)
     
@@ -73,12 +72,22 @@ def evaluate_dataset(model):
     print("\n--- Classification Report ---")
     print(classification_report(y_true, y_pred, target_names=class_names))
 
-    # 3. Hiển thị ảnh sai (nếu có)
+    # 3. HIỂN THỊ TẤT CẢ ẢNH SAI
     errors = np.where(y_pred != y_true)[0]
-    if len(errors) > 0:
-        print(f"\nTìm thấy {len(errors)} ảnh dự đoán sai. Hiển thị tối đa 5 ảnh:")
-        plt.figure(figsize=(15, 5))
-        for i, error_idx in enumerate(errors[:5]):
+    num_errors = len(errors)
+
+    if num_errors > 0:
+        print(f"\n❌ Tìm thấy {num_errors} ảnh dự đoán sai. Đang hiển thị tất cả...")
+        
+        # Cấu hình lưới hiển thị
+        cols = 5  # Số ảnh trên 1 hàng
+        rows = math.ceil(num_errors / cols) # Tính số dòng cần thiết
+        
+        # Điều chỉnh chiều cao khung hình dựa trên số dòng (mỗi dòng cao khoảng 4 inch)
+        plt.figure(figsize=(15, 4 * rows)) 
+
+        for i, error_idx in enumerate(errors):
+            # Lấy đường dẫn ảnh
             img_path = os.path.join(TEST_DIR, test_generator.filenames[error_idx])
             img = plt.imread(img_path)
             
@@ -86,14 +95,17 @@ def evaluate_dataset(model):
             pred_label = class_names[y_pred[error_idx]]
             confidence = np.max(Y_pred[error_idx])
             
-            plt.subplot(1, 5, i+1)
+            # Vẽ từng ảnh
+            plt.subplot(rows, cols, i+1)
             plt.imshow(img)
-            plt.title(f"True: {true_label}\nPred: {pred_label}\nConf: {confidence:.2f}", color='red', fontsize=10)
+            plt.title(f"True: {true_label}\nPred: {pred_label}\nConf: {confidence:.2f}", 
+                      color='red', fontsize=10, fontweight='bold')
             plt.axis('off')
+
         plt.tight_layout()
         plt.show()
     else:
-        print("\nTuyệt vời! Mô hình dự đoán đúng 100%.")
+        print("\n✅ Tuyệt vời! Mô hình dự đoán đúng 100%.")
 
 # ========== MAIN ==========
 if __name__ == "__main__":
