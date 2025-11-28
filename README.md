@@ -62,8 +62,9 @@ uv venv
 # Kích hoạt môi trường (Windows)
 .venv\Scripts\activate
 
-# Cài đặt các thư viện cần thiết
-uv pip install tensorflow numpy matplotlib pillow opencv-python scikit-learn seaborn
+Cài đặt tất cả thư viện cần thiết bằng lệnh:
+```bash
+python -m pip install -r requirements.txt
 
 🚀 Hướng dẫn sử dụng
 1. Huấn luyện mô hình (Training)
