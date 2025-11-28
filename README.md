@@ -117,3 +117,67 @@ Mô hình sử dụng kiến trúc tuần tự (Sequential) với 4 khối tích
 - Training Accuracy: ~90%
 - Validation Accuracy: ~88%
 - Loss: Hội tụ tốt sau khoảng 20 epochs.
+
+## 🌐 Hướng dẫn chạy Website (Web Interface)
+
+Dự án bao gồm một giao diện web đơn giản giúp người dùng tải ảnh lên và nhận kết quả dự đoán từ mô hình AI.
+
+### 1. Yêu cầu môi trường
+Đảm bảo bạn đã cài đặt các thư viện cần thiết cho Backend. Mở Terminal và chạy:
+
+```bash
+# Cài đặt Flask và các thư viện hỗ trợ
+
+python -m pip install flask flask-cors pillow tensorflow
+
+2. Khởi động Backend (Server AI)
+Server này đóng vai trò nhận ảnh từ web, đưa vào mô hình xử lý và trả về kết quả.
+
+Mở Terminal tại thư mục gốc của dự án (project_tomato).
+
+Chạy lệnh sau:
+
+Bash
+
+python src/app.py
+
+Khi thấy dòng thông báo sau hiện ra, nghĩa là Server đã sẵn sàng:
+
+Running on [http://0.0.0.0:5000](http://0.0.0.0:5000)
+
+⚠️ Lưu ý: Đừng tắt cửa sổ Terminal này trong quá trình sử dụng web.
+
+3. Mở giao diện Frontend
+Truy cập vào thư mục dự án.
+
+Tìm file index.html.
+
+Nhấp đúp chuột (Double click) để mở file này trên trình duyệt (Chrome, Edge, Firefox...).
+
+Mẹo: Nếu dùng VS Code, bạn có thể chuột phải vào file và chọn "Open with Live Server" (nếu đã cài Extension) để có trải nghiệm tốt hơn.
+
+4. Cách sử dụng
+Tại giao diện web, nhấn vào khung "Tải ảnh lên" hoặc kéo thả ảnh cà chua vào đó.
+
+Chờ khoảng 1-2 giây để AI phân tích.
+
+Kết quả (Xanh/Chín) và độ tin cậy (%) sẽ hiển thị ở cột bên phải.
+
+🛠️ Khắc phục lỗi thường gặp
+Lỗi 1: Bấm tải ảnh nhưng không thấy phản hồi hoặc báo lỗi kết nối.
+
+Nguyên nhân: Bạn chưa chạy Backend hoặc đã vô tình tắt cửa sổ Terminal chạy app.py.
+
+Khắc phục: Kiểm tra lại Bước 2, đảm bảo Server đang chạy ở cổng 5000.
+
+Lỗi 2: ModuleNotFoundError: No module named 'flask'
+
+Nguyên nhân: Chưa cài đặt thư viện Flask.
+
+Khắc phục: Chạy lại lệnh cài đặt ở Bước 1.
+
+Lỗi 3: Web báo "Lỗi từ AI"
+
+Nguyên nhân: Có thể file ảnh bị lỗi hoặc mô hình .h5 chưa được tạo.
+
+Khắc phục: Đảm bảo bạn đã chạy train.py để tạo ra file models/best_model.h5 trước đó.
