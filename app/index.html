@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Tomato project</title>
+</head>
+<body>
+    <div class="container h-full">
+        <div class="bg-white h-16 border border-gray-300  ">
+            <div class="h-full flex justify-between items-center mx-8">
+                <div>
+                    <h1>TOMATO_RIPE_OR_UNRIPE</h1>
+                </div>
+                <div>
+                    <h1>TOMATO_RIPE_OR_UNRIPE</h1>
+                </div>
+            </div>
+        </div>
+        <!-- PHẦN BODY -->
+        <div class="bg-white h-[600px] px-28">
+            <div class="mt-4">
+                <button 
+                class="px-4 py-2 m-2 bg-white rounded-lg active:bg-blue-100 active:scale-90 duration-300 border border-gray-300">
+                    Văn bản
+                </button>
+                <button 
+                class="px-4 py-2 m-2 bg-white rounded-lg active:bg-blue-100 active:scale-90 duration-300 border border-gray-300">
+                    Hình ảnh
+                </button>
+                <button 
+                class="px-4 py-2 m-2 bg-white rounded-lg active:bg-blue-100 active:scale-90 duration-300 border border-gray-300">
+                    Tài liệu
+                </button>
+            </div>
+            <div class="bg-white h-1/2 my-5 rounded-lg border border-gray-300 flex justify-between">
+                <div id="dropZone"
+                 class="border bg-white mr-1 w-1/2 rounded-lg border border-r-lg flex justify-center items-center">
+                    <div class="items-center">
+                        <img id="previewImage"
+                         src="https://ssl.gstatic.com/translate/drag_and_drop.png" alt="" 
+                        class="h-36 object-contain">
+                        <h1 class="text-center p-2 text-lg font-base">
+                            Nhấn để chọn ảnh
+                        </h1>
+                        <input type="file" id="fileInput" accept="image/*" class="hidden">
+                    </div>
+                </div>
+                <div class="border bg-white ml-1 w-1/2 rounded-lg border-gray-300 p-4">
+                    <p class="text-lg font-base mb-3">Kết quả:</p>
+                    <p id="resultText" class="text-2xl font-medium text-blue-600">Chưa có ảnh</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
