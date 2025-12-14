@@ -22,28 +22,28 @@ IMG_SIZE = (128, 128)
 # Nhãn (Cần khớp với thứ tự thư mục lúc train: chin -> xanh)
 # Mặc định flow_from_directory sắp xếp alphabe: 'chin' (0), 'xanh' (1)
 CLASS_NAMES = {
-    0: 'Cà chua CHÍN (Ripe) 🔴',
-    1: 'Cà chua XANH (Unripe) 🟢'
+    0: 'Cà chua CHÍN (Ripe)',
+    1: 'Cà chua XANH (Unripe)'
 }
 
 def load_model():
     if not os.path.exists(MODEL_PATH):
-        print(f"❌ Lỗi: Không tìm thấy file mô hình tại {MODEL_PATH}")
+        print(f" Lỗi: Không tìm thấy file mô hình tại {MODEL_PATH}")
         print("   Vui lòng chạy 'python src/train.py' trước.")
         sys.exit(1)
     
-    print(f"🔄 Đang tải mô hình từ {MODEL_PATH}...")
+    print(f" Đang tải mô hình từ {MODEL_PATH}...")
     try:
         model = tf.keras.models.load_model(MODEL_PATH)
-        print("✅ Tải mô hình thành công!")
+        print(" Tải mô hình thành công!")
         return model
     except Exception as e:
-        print(f"❌ Lỗi khi tải mô hình: {e}")
+        print(f" Lỗi khi tải mô hình: {e}")
         sys.exit(1)
 
 def predict_image(model, img_path):
     if not os.path.exists(img_path):
-        print(f"❌ Lỗi: Không tìm thấy ảnh tại {img_path}")
+        print(f" Lỗi: Không tìm thấy ảnh tại {img_path}")
         return
 
     print(f"\n🔍 Đang xử lý ảnh: {img_path}")
@@ -80,7 +80,7 @@ def predict_image(model, img_path):
         plt.show()
 
     except Exception as e:
-        print(f"❌ Lỗi khi dự đoán: {e}")
+        print(f" Lỗi khi dự đoán: {e}")
 
 # ========== MAIN ==========
 if __name__ == "__main__":
@@ -98,16 +98,16 @@ if __name__ == "__main__":
         predict_image(model, args.image)
     else:
         # Chế độ nhập tay liên tục nếu không truyền tham số
-        print("\n💡 Mẹo: Bạn có thể kéo thả file ảnh vào cửa sổ này để lấy đường dẫn.")
+        print("\n Mẹo: Bạn có thể kéo thả file ảnh vào cửa sổ này để lấy đường dẫn.")
         while True:
-            img_path = input("\n👉 Nhập đường dẫn ảnh (hoặc gõ 'exit' để thoát): ").strip()
+            img_path = input("\n Nhập đường dẫn ảnh (hoặc gõ 'exit' để thoát): ").strip()
             
             # Xử lý xóa dấu ngoặc kép nếu có (do Windows copy path)
             if img_path.startswith('"') and img_path.endswith('"'):
                 img_path = img_path[1:-1]
             
             if img_path.lower() in ['exit', 'quit', 'q']:
-                print("Tạm biệt! 👋")
+                print("Tạm biệt! ")
                 break
             
             if img_path:

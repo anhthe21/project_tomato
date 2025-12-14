@@ -105,7 +105,7 @@ def evaluate_dataset(model):
         plt.tight_layout()
         plt.show()
     else:
-        print("\n✅ Tuyệt vời! Mô hình dự đoán đúng 100%.")
+        print("\n Tuyệt vời! Mô hình dự đoán đúng 100%.")
 
 # ========== MAIN ==========
 if __name__ == "__main__":

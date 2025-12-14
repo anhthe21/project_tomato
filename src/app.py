@@ -23,12 +23,12 @@ app = Flask(__name__)
 CORS(app) # Cho phép trang web gọi vào server này
 
 # Load model khi server khởi động
-print(f"🔄 Đang tải mô hình từ {MODEL_PATH}...")
+print(f" Đang tải mô hình từ {MODEL_PATH}...")
 try:
     model = tf.keras.models.load_model(MODEL_PATH)
-    print("✅ Tải mô hình thành công!")
+    print(" Tải mô hình thành công!")
 except Exception as e:
-    print(f"❌ Lỗi: Không thể tải mô hình. Chi tiết: {e}")
+    print(f" Lỗi: Không thể tải mô hình. Chi tiết: {e}")
     model = None
 
 @app.route('/predict', methods=['POST'])
