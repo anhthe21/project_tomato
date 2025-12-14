@@ -77,7 +77,7 @@ def evaluate_dataset(model):
     num_errors = len(errors)
 
     if num_errors > 0:
-        print(f"\n❌ Tìm thấy {num_errors} ảnh dự đoán sai. Đang hiển thị tất cả...")
+        print(f"\n Tìm thấy {num_errors} ảnh dự đoán sai. Đang hiển thị tất cả...")
         
         # Cấu hình lưới hiển thị
         cols = 5  # Số ảnh trên 1 hàng
