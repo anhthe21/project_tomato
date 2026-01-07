@@ -9,7 +9,7 @@ import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
-from tensorflow.keras.preprocessing import image
+from keras.preprocessing import image
 
 # Fix lỗi hiển thị tiếng Việt trên Windows console
 if sys.platform == 'win32':
